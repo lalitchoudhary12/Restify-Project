@@ -97,8 +97,7 @@ app.listen(8080,()=>{
     console.log("Server is listening on port 8080")
 })
 
-//booking route
-app.use("/",bookingRouter)
+
 
 //listing route
 app.use("/listings",listingsRouter)
@@ -108,6 +107,9 @@ app.use("/listings/:id/reviews",reviewsRouter)
 
 //user route
 app.use("/",userRouter)
+
+//booking route
+app.use("/",bookingRouter)
 
 //contact path
 const mail = process.env.Mail

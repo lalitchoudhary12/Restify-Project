@@ -3,7 +3,6 @@ const axios = require('axios');
 // Function to geocode location and country to get coordinates (latitude and longitude)
 async function geocodeLocation(location, country,map_api_key) {
   try {
-    // const HERE_API_KEY = map_api_key;
     const query = `${location}, ${country}`;
     const geocodeUrl = `https://geocode.search.hereapi.com/v1/geocode?q=${encodeURIComponent(query)}&apiKey=${map_api_key}`;
 
