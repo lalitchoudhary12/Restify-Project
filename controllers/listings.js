@@ -3,7 +3,7 @@ if(process.env.NODE_ENV != "production"){
 }
 const Listing = require("../models/listing.js")
 const { geocodeLocation } = require('../public/js/map_api.js');
-const map_api_key = process.env.map_api_key
+const map_api_key = process.env.MAP_API_KEY
 
 module.exports.index = async (req,res)=>{
     const alllistings = await Listing.find({})
