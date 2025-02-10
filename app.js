@@ -25,7 +25,6 @@ app.engine("ejs", ejsMate)
 //mongoose
 const User = require("./models/user.js")
 const mongoose = require("mongoose")
-// const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
 const DBURL = process.env.ATLAS_DBURL
 
 main()
