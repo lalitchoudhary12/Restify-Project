@@ -1,0 +1,140 @@
+<%= layout("/layouts/boilerplate") %>
+<script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-core.js" charset="utf-8"></script>
+<script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-service.js" charset="utf-8"></script>
+<script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-ui.js" charset="utf-8"></script>
+<style>
+  .btns {
+    margin-left: 5px !important;
+  }
+  .book-btn {
+    margin-left: none !important;
+  }
+  @media (max-width:768px) {
+    .book-btn {
+      width: 40% !important;
+      margin-top: 5px;
+    }
+    .btns {
+      margin-left:0px !important;
+    }
+  }
+</style>
+<div class="row">
+  <div class="col-8 offset-3 mt-3 show-title" >
+  <h3 class="title"><%= listing.title %></h3>
+  </div>
+  <div class="card col-6 offset-3 show-card listing-card">
+      <img src="<%= listing.image.url %>" class="card-img-top show-img mt-2" alt="listing_image">
+      <div class="card-body">
+        <p class="card-text owner">Owned by <i><%= listing.owner.username %></i></p>
+        <p class="card-text"><%= listing.description %></p> 
+        <p class="card-text"> &#8377; <%= (listing.price * 1.18).toLocaleString("en-IN") %> / night<i>&nbsp; &nbsp; +18%GST</i></p>
+        <p class="card-text"> <%= listing.location %>, &nbsp; <%= listing.country %></p>
+      </div>
+      <P class="mt-3 mb-3">Map View :</P>
+      <div class="col-12 offset-0">
+        <div id="mapContainer" ></div>
+        <div id="zoom-buttons" style="text-align: center; margin-top: 10px;">
+          <button id="zoomIn" style="padding: 10px; font-size: 14px;">+</button>
+          <button id="zoomOut" style="padding: 10px; font-size: 14px;">-</button>
+        </div>
+      </div>
+      <br>
+      <a href="/listings/<%=listing._id%>/book" class="btn btn-success col-3 book-btn">Book Room</a>
+  </div>
+  <% if(currUser && currUser._id.equals(listing.owner._id)) { %>
+    <div class="btns ">
+      <a href="/listings/<%=listing._id%>/edit" class="btn btn-dark show-edit-btn col-1.5 offset-3">Edit</a>
+      <form method="post" action="/listings/<%=listing._id%>?_method=DELETE">
+        <button class="btn btn-dark delete-btn  offset-4">Delete</button>
+      </form>
+    </div>
+  <% } %>
+  <div class="col-6 offset-3 mb-3 show-review-form">
+    <hr>
+    <% if(currUser) { %> 
+    <h4>Leave a Review</h4>
+    <form action="/listings/<%=listing._id%>/reviews" method="post" class="needs-validation" novalidate>
+      <div class="mt-3">
+        <label class="form-label mb-2" for="rating">Rating</label>
+        <fieldset class="starability-slot">
+          <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked aria-label="No rating." />
+          <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+          <label for="first-rate1" title="Terrible">1 star</label>
+          <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+          <label for="first-rate2" title="Not good">2 stars</label>
+          <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+          <label for="first-rate3" title="Average">3 stars</label>
+          <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+          <label for="first-rate4" title="Very good">4 stars</label>
+          <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+          <label for="first-rate5" title="Amazing">5 stars</label>
+        </fieldset>
+      </div>
+      <div class="mb-3 col-md-5">
+        <label class="form-label" for="comment">Comment</label>
+        <textarea class="form-control" name="review[comment]" cols="5" rows="4" id="comment" required></textarea>
+        <div class="invalid-feedback">
+          Pls drop your comment
+        </div>
+      </div>
+      <button class="btn btn-dark review-btn mb-2 mt-2">Post</button>
+    </form>
+    <hr>
+    <% } %>
+    
+    <h4><b>All Reviews</b></h4>
+    <br>
+    <div class="row review-box">
+    <% for(review of listing.reviews) { %>
+      <div class="card col-5 ms-4 mb-2 show-review" >
+        <div class="card-body mt-2" >
+          <h5 class="card-title">@<%= review.author.username %></h5>
+          <p class="starability-result mt-3" data-rating="<%= review.rating%>"></p>
+          <p class="card-text"><%= review.comment%></p>
+          <p class="card-text  text-muted">
+            <small>Reviewed on: <%= review.createdAt.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) %></small>
+          </p>
+            <form class="mb-3 position-absolute top-0 end-0 p-2" method="post" action="/listings/<%=listing._id%>/reviews/<%=review._id%>?_method=Delete">
+              <button type="submit" class="btn btn-link p-0" aria-label="Delete">
+                <i class="fas fa-trash-alt" style="color: black; opacity: 0.5; font-size: 20px;"></i>
+              </button>
+            </form>
+        </div>
+      </div>
+    <% } %>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  var platform = new H.service.Platform({
+    'apikey': "<%=map_api_key%>"  // Your Here API Key
+  });
+  var defaultLayers = platform.createDefaultLayers();
+  // Create the map object with latitude and longitude (from the backend)
+  var map = new H.Map(
+    document.getElementById('mapContainer'),
+    defaultLayers.vector.normal.map,
+    {
+      zoom: 12,  // Initial zoom level
+      center: { lat: "<%=lat%>", lng: "<%=lng%>" }  // Coordinates from backend
+    }
+  );
+  // Add a marker at the location
+  var marker = new H.map.Marker({ lat: "<%=lat%>", lng: "<%=lng%>" });
+  map.addObject(marker);
+  // Event listener for zooming in
+  document.getElementById('zoomIn').addEventListener('click', function() {
+    var currentZoom = map.getZoom();
+    if (currentZoom < 20) {  // Maximum zoom level
+      map.setZoom(currentZoom + 1);  // Zoom in
+    }
+  });
+  // Event listener for zooming out
+  document.getElementById('zoomOut').addEventListener('click', function() {
+    var currentZoom = map.getZoom();
+    if (currentZoom > 5) {  // Minimum zoom level
+      map.setZoom(currentZoom - 1);  // Zoom out
+    }
+  });
+</script>

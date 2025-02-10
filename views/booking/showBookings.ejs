@@ -1,0 +1,89 @@
+<%= layout("/layouts/boilerplate") %>
+<div class="bookings-container">
+    <div class="row mb-4">
+        <div class="col-12 mt-3 user-detail ">
+            <h2>Welcome, <%= user.username %>!</h2>
+            <p class="text-muted">Email: <%= user.email %></p>
+        </div>
+    </div>
+    <% if (listings.length === 0) { %>
+        <div class="col-12 text-center mt-4">
+            <h4 class="text-muted booking-msg">You don't have any bookings yet. Start exploring hotels and make your booking!</h4>
+        </div>
+    <% } else { %>
+        <% if (user.hotelBookingId.length === 0) { %>
+            <div class="col-12 text-center">
+                <h4 class="text-muted booking-msg">You don't have any bookings yet. Start exploring hotels and make your booking!</h4>
+            </div>
+        <% } else { %>
+            <div class="row booking-box offset-1">
+                <% user.hotelBookingId.forEach((booking, index) => { %>
+                    <% const listing = listings[index]; %>
+                    <div class="card col-12 col-md-5 ms-4 mb-4 show-booking">
+                        <div class="card-header booking-header">
+                            <strong>Booking ID: <%= booking._id %></strong>
+                        </div>
+                        <div class="card-body booking-body">
+                            <p class="card-text"><strong>Hotel Name:</strong> <%= listing.title %></p>
+                            <img src="<%= listing.image.url %>" class="card-img-top show-booking-img" alt="<%= listing.hotelName %>">
+                            <p class="card-text mt-3"><strong>Location:</strong> <%= listing.location %>, <%= listing.country %></p>
+                            <hr class="card-line booking-card-line"/>
+    
+                            <p class="card-text"><strong>Customer Name:</strong> <%= booking.customerName %></p>
+                            <p class="card-text"><strong>Check-in Date:</strong> <%= booking.checkInDate.toLocaleDateString() %></p>
+                            <p class="card-text"><strong>Check-out Date:</strong> <%= booking.checkOutDate.toLocaleDateString() %></p>
+                            <p class="card-text"><strong>Guests:</strong> <%= booking.numGuests %> Guests</p>
+                            <p class="card-text"><strong>Room Type:</strong> <%= booking.roomType %></p>
+                            <p class="card-text"><strong>Special Requests:</strong> <%= booking.specialRequests || "None" %></p>
+                            <p class="card-text"><strong>Total Price:</strong> &#8377; <%= (booking.totalPrice * 1.18).toLocaleString("en-IN") %> (Including taxes)</p>
+                            <p class="card-text"><strong>Payment Method:</strong> <%= booking.paymentMethod %></p>
+                            <p class="card-text"><strong>Contact Number:</strong> <%= booking.contactNumber %></p>
+                            <p class="card-text"><strong>Email:</strong> <%= booking.customerEmail %></p>
+                            <p class="card-text"><strong>Status:</strong> Confirmed</p>
+                            <p class="card-text text-muted mt-2">
+                                <strong>Booked on: <%= booking.createdAt.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) %></strong>
+                            </p>
+                            <button type="button" class="btn btn-danger cancel-booking-btn" data-bs-toggle="modal" data-bs-target="#cancelBookingModal" data-booking-id="<%= booking._id %>">
+                                Cancel Booking
+                            </button>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+        <% } %>
+    <% } %>
+</div>
+
+
+<!-- Modal for confirmation -->
+<div class="modal fade" id="cancelBookingModal" tabindex="-1" aria-labelledby="cancelBookingModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="cancelBookingModalLabel">Cancel Booking</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            Are you sure you want to cancel this booking? <strong>Once canceled, your amount will be credited automatically to your bank account.</strong> 
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <form id="cancelBookingForm" method="post" action="">
+            <button type="submit" class="btn btn-danger">Yes, Cancel Booking</button>
+          </form>
+        </div>
+      </div>
+    </div>
+</div>
+<script>
+    // Set up modal action dynamically
+    const cancelButtons = document.querySelectorAll('.cancel-booking-btn');
+
+    cancelButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const bookingId = this.getAttribute('data-booking-id');
+            const cancelForm = document.getElementById('cancelBookingForm');
+            cancelForm.action = `/listings/bookings/${bookingId}?_method=Delete`;
+        });
+    });
+</script>

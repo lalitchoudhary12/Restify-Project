@@ -1,0 +1,386 @@
+body {
+    font-family: "Plus Jakarta Sans", serif !important;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* boilerplate */
+.container {
+    flex: 1 ;
+}
+
+/* navbar */
+.navbar {
+    height: 5rem;
+    background-color: white;
+}
+.fa-compass {
+    color : #fe424d;  
+    font-size: 2rem;
+}
+.nav-link {
+    color: #222222 !important;
+} 
+.search-btn-laptop {
+  background-color: #fe424d !important;
+  color : #fff !important;
+  border-radius: 25px !important;
+  width: 7rem !important;
+  border: none !important;
+  margin-left: 0.5rem !important;
+}
+.search-btn-laptop:hover {
+  background-color: #fe424d !important;
+  color : #fff !important;
+  transform: scale(1.05) !important;
+}
+.search-input-laptop {
+  border-radius: 30px !important;
+  width: 22rem !important;
+  padding-left:20% !important;
+}
+.restify-for-mobile {
+  display: none !important;
+}
+.restify-for-laptop {
+  display: block !important;
+}
+
+/* footer */
+.f-info-links a:hover {
+    text-decoration:  underline;
+}
+.f-info-links a {
+    text-decoration:  none;
+    color : #222222 ;
+}
+.f-info {
+    text-align: center;
+    display: flex;
+    height: 8rem;
+    background-color: #ebebeb;
+    flex-wrap: wrap;
+    justify-content: center;  
+    align-items: space-evenly;
+}
+.f-info-links , .f-info-socials , .f-info-brand{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.f-info-socials i {
+    margin-right: 1rem;
+    font-size: 1.2rem;
+}
+
+/* cards */
+.listing-card {
+    border: none !important;
+    margin-bottom: 2rem;
+
+}
+.card-img-top {
+    border-radius: 1rem !important;
+    width: 100% !important;
+    object-fit: cover !important;
+}
+
+.card-body {
+    padding: 0 !important;
+}
+
+.card-text p {
+    font-weight: 400 !important;
+}
+.listing-link {
+    text-decoration: none;
+}
+.card-img-overlay {
+    opacity: 0;
+}
+.card-img-overlay:hover {
+    opacity: 0.2;
+    background-color: white;
+}
+
+/* new and edit listing */
+.add-btn , .edit-btn , .show-edit-btn  {
+    background-color: #fe424d !important;
+    border: none !important;
+}
+
+/* show page  */
+.show-img {
+    height: 40vh;
+}
+.delete-btn , .review-btn {
+    background-color: #fe424d !important;
+    border: none !important;
+}
+.btns {
+    display: flex;
+}
+
+/* map style */
+#zoom-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+#zoomIn, #zoomOut {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+}
+#zoomIn:hover, #zoomOut:hover {
+    background-color: #45a049;
+}
+#mapContainer {
+    width: 80%;
+    height: 300px;
+    margin-left: 10%;
+}
+
+/* index page */
+.scrollable-div {
+    max-height: 300px;
+    border:none;
+    display: flex;
+    flex-wrap: nowrap;
+    margin-left: 1.2rem;
+}
+.filter {
+  text-align: center;
+  margin-right: 2rem;
+}
+.filter:hover {
+  transform: scale(1.08);
+  cursor: pointer;
+}
+.tax-info {
+  display: none;
+}
+.tax-toggle {
+  border: 2px solid rgba(153, 150, 150, 0.849);
+  border-radius: 1rem;
+  height: 3rem;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+}
+.information {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.search-box-mobile {
+  display : none !important;
+}
+.search-btn{
+background-color: #fe424d !important;
+color : #fff !important;
+border-radius: 25px !important;
+width: 7rem !important;
+border: none !important;
+margin-left: 0.5rem !important;
+}
+.search-btn:hover {
+  background-color: #fe424d !important;
+  color : #fff !important;
+  transform: scale(1.05) !important;
+}
+.search-input{
+  border-radius: 30px !important;
+  width: 22rem !important;
+  padding-left:20% !important;
+}
+
+/* bookings page */
+.booking-header {
+  background-color: #f0f0f0 !important; /* Grey background for header */
+  padding: 10px 15px  !important;
+  font-size: 16px  !important;
+  text-align: center  !important;
+  border-radius: 5px 5px 0 0  !important;
+}
+.booking-body {
+  padding: 20px  !important;
+}
+.show-booking  {
+  padding: 0px !important;;
+}
+.booking-card-line {
+  border: 1px solid #ddd  !important ;
+  margin: 15px 0  !important;
+  width: 100%  !important;
+}
+.cancel-booking-btn {
+  width: 100%  !important;
+}
+.user-detail {
+  text-align: center !important;
+}
+.show-booking-img {
+  height: 300px !important;
+}
+
+/* contact page */
+.contact {
+  width: 50%;
+  margin-left: 28%;
+  margin-top: 5%;
+  padding: 20px;
+  border-radius: 10px;
+}
+.contact-info a {
+  font-weight: bold;
+  color: #007bff;
+  text-decoration: none;
+}
+
+.contact-info a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width:768px) {
+    .create-form , .edit-form {
+      margin-left: 5% !important;
+      width: 90% !important;
+    }
+    
+    /* show page */
+    #mapContainer {
+      width: 90% !important;
+      height: 250px !important;
+      margin-left: 5% !important;
+    }
+    .show-title , .show-card , .show-review-form ,.show-edit-btn {
+      margin-left: 5% !important;
+      margin-right: 5% !important;
+    }
+    .show-card , .show-review-form  {
+      flex: 0 0 auto !important;
+      width: 90% !important;
+    }
+    .review-box{
+      display: flex !important;
+      flex-direction: column !important;
+      margin: auto !important;
+    }
+    .show-review {
+      margin-top: 0.5rem !important;
+      width: 80% !important;
+    }
+    .title {
+      font-size: large !important;
+    }
+    .delete-btn {
+      margin-left: 0.3rem !important;
+    }
+
+    /* flash msg */
+    .flash-success , .flash-error {
+      margin-left: 10% !important;
+      width: 80% !important;
+    }
+
+    /* signup and login */
+    .signup-form , .login-form {
+      margin-left: 10% !important;
+      width: 80% !important;
+      margin-top: 2rem !important;
+    }
+    
+    /* index page */
+    .scrollable-div {
+      overflow-x: auto  !important; /* Allow horizontal scrolling */
+      white-space: nowrap  !important; /* Prevent content from wrapping */
+      -ms-overflow-style: none  !important;  /* For Internet Explorer */
+      scrollbar-width: none  !important; /* For Firefox */
+      /* Hide the scrollbar */
+      .scrollable-div::-webkit-scrollbar {
+        display: none  !important; /* Hide the scrollbar for WebKit browsers (Chrome, Safari) */
+      }
+    }
+    .tax-toggle {
+      margin-top: 0.1rem  !important;
+      margin-bottom: 0.1rem  !important;
+      border: none  !important;
+      height: 2rem  !important;
+    }
+    .search-box-mobile {
+      display: block !important;
+    }
+    .search-input {
+      width: 90% !important;
+    }
+    .search-btn {
+      width: 15% !important;
+    }
+
+    /* navbar */
+    .search-box-laptop {
+      display : none !important;
+    }
+    .restify-for-mobile{
+      display: inline !important;
+      margin-bottom:1.2rem !important;
+    }
+    .restify-for-laptop {
+      display: none !important ;
+    }
+
+    /* bookings page */
+    .bookings-container {
+      width: 90% !important;
+      padding-left: 0% !important;
+    } 
+    .user-detail {
+      margin-left: 5% !important;
+    }
+    .booking-box {
+      margin-left: 0% !important;
+      width: 97% !important;
+    }
+    .show-booking{
+      margin-left: 0% !important;
+    }
+    .show-booking-img {
+      height: 200px !important;
+    }
+    .booking-msg {
+      margin-left: 10% !important;
+    }
+    .modal-content {
+      width: 90% !important;
+      margin-left: 5% !important;
+      margin-top: 60% !important;
+    }
+
+    /* contact page */
+    .contact {
+      width: 90%; 
+      margin-left: 5% !important;
+      margin-right: 5% !important;
+      padding: 10px;
+    }
+    .contact h4 {
+      font-size: 1.5rem;
+      text-align: center;
+    }
+    .contact p {
+      font-size: 1rem;
+      text-align: center;
+    }
+    .contact-info {
+      text-align: center;
+      margin-top: 20px;
+    }
+}

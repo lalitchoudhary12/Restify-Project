@@ -1,0 +1,33 @@
+<style>
+    @media (max-width:768px) {
+        
+        
+    }
+</style>
+<% if(success && success.length) {  %>
+    <div
+        class = "alert alert-success alert-dismissible fade show col-4 offset-4 mt-2 flash-success"
+        role="alert">
+        <%= success %>
+        <button
+           type="button"
+           class="btn-close"
+           data-bs-dismiss="alert"
+           aria-label="close"
+        ></button>
+    </div>
+<% } %>
+
+<% if(error && error.length) {  %>
+    <div
+        class = "alert alert-danger alert-dismissible fade show col-4 offset-4 mt-2 flash-error"
+        role="alert">
+        <%= error %>
+        <button
+           type="button"
+           class="btn-close"
+           data-bs-dismiss="alert"
+           aria-label="close"
+        ></button>
+    </div>
+<% } %>

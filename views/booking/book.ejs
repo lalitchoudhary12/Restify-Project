@@ -1,0 +1,129 @@
+<%= layout("/layouts/boilerplate") %>
+<body>
+    <div class="row">
+        <div class="col-8 offset-2 mt-3 edit-form">
+            <h2>Hotel Booking</h2>
+            <br>
+            <form method="post" action="/listings/<%= listing._id %>" class="needs-validation" novalidate >
+                <div class="mb-3">
+                    <label for="hotelName" class="form-label">Hotel Name</label>
+                    <input class="form-control" id="hotelName" type="text" value="<%= listing.title %>" name="booking[hotelName]" readonly>
+                </div>
+                <div class="mb-3">
+                    <label for="customerName" class="form-label">Customer Name</label>
+                    <input required class="form-control" id="customerName" type="text" placeholder="enter full name" name="booking[customerName]">
+                    <div class="invalid-feedback">
+                        Please enter your name.
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="location" class="form-label">Location</label>
+                        <input required class="form-control" id="location" type="text" placeholder="enter location" name="booking[location]">
+                        <div class="invalid-feedback">
+                            Enter valid location
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="country" class="form-label">Country</label>
+                        <input required class="form-control" id="country" type="text" placeholder="enter country" name="booking[country]">
+                        <div class="invalid-feedback">
+                            Enter valid country name
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="checkInDate" class="form-label">Check-in Date</label>
+                        <input required class="form-control" id="checkInDate" type="date" name="booking[checkInDate]">
+                        <div class="invalid-feedback">
+                            Please select your check-in date.
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="checkOutDate" class="form-label">Check-out Date</label>
+                        <input required class="form-control" id="checkOutDate" type="date" name="booking[checkOutDate]">
+                        <div class="invalid-feedback">
+                            Please select your check-out date.
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="numGuests" class="form-label">Number of Guests</label>
+                        <input required class="form-control" placeholder="no. of guests" id="numGuests" type="number" name="booking[numGuests]" min="1" max="4">
+                        <div class="invalid-feedback">
+                            Please enter the number of guests.
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="roomType" class="form-label">Room Type</label>
+                        <select required class="form-control" id="roomType" name="booking[roomType]">
+                            <option value="single">Single</option>
+                            <option value="double">Double</option>
+                            <option value="suite">Suite</option>
+                        </select>
+                        <div class="invalid-feedback">
+                            Please select a room type.
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="specialRequests" class="form-label">Special Requests (Optional)</label>
+                    <textarea class="form-control" id="specialRequests" placeholder="enter special request that you want" name="booking[specialRequests]"></textarea>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="totalPrice" class="form-label">Total Price with Gst</label>
+                        <input class="form-control" id="totalPrice" type="text" name="booking[totalPrice]" value="<%=listing.price%>">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="paymentMethod" class="form-label">Payment Method</label>
+                        <select required class="form-control" id="paymentMethod" name="booking[paymentMethod]">
+                            <option value="creditCard">Credit Card</option>
+                            <option value="paypal">PayPal</option>
+                        </select>
+                        <div class="invalid-feedback">
+                            Please select a payment method.
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="customerEmail" class="form-label">Email Address</label>
+                        <input required class="form-control" placeholder="enter email" id="customerEmail" type="email" name="booking[customerEmail]">
+                        <div class="invalid-feedback">
+                            Please enter a valid email address.
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="contactNumber" class="form-label">Contact Number</label>
+                        <input required class="form-control" maxlength="10" placeholder="enter valid phone number" id="contactNumber" type="tel" name="booking[contactNumber]" pattern="[0-9]{10}">
+                        <div class="invalid-feedback">
+                            Please enter a valid contact number.
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <button class="btn btn-dark edit-btn" type="submit">Book Now</button>
+                <br><br>
+            </form>
+        </div>
+    </div>
+</body>
+<script>
+    // Calculate Total Price with 18% GST
+    function calculateTotalPriceWithGST() {
+        const price = parseFloat('<%= listing.price %>');  // Listing price comes from the backend (ejs)
+        
+        if (!isNaN(price)) {
+            const gstPrice = price * 1.18;  // Adding 18% GST to the price
+            document.getElementById('totalPrice').value = gstPrice.toFixed(2);  // Show the calculated price with GST
+        } else {
+            document.getElementById('totalPrice').value = 'Invalid Price';  // Handle invalid price
+        }
+    }
+    
+    // Call this function after the page loads to immediately calculate the total price with GST
+    window.onload = calculateTotalPriceWithGST;
+</script>
