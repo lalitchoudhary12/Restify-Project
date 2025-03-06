@@ -384,22 +384,3 @@ margin-left: 0.5rem !important;
       margin-top: 20px;
     }
 }
-
-
-@media (max-width:1368px) {
-  .tax-toggle {
-    height: 7rem !important;
-  }
-  .scrollable-div {
-    display: flex !important;
-    flex-wrap: wrap !important;
-  }
-
-  .information {
-    display: flex !important;
-    flex-wrap: nowrap !important;
-  }
-  .d-flex {      
-    display: none !important;
-  }
-}
