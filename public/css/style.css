@@ -249,26 +249,6 @@ margin-left: 0.5rem !important;
   text-decoration: underline;
 }
 
-
-
-@media (max-width:1368px) {
-  .tax-toggle {
-    height: 7rem !important;
-  }
-  .scrollable-div {
-    display: flex !important;
-    flex-wrap: wrap !important;
-  }
-
-  .information {
-    display: flex !important;
-    flex-wrap: nowrap !important;
-  }
-  .d-flex {      
-    display: none !important;
-  }
-}
-
 @media (max-width:768px) {
     .create-form , .edit-form {
       margin-left: 5% !important;
