@@ -1,6 +1,6 @@
 # Restify
 
-Restify is a web application for listing and booking vacation rentals. Users can explore listings, book accommodations, and leave reviews. The application is built using Node.js, Express, MongoDB, and EJS templating.
+Restify is a responsive web application for listing and booking vacation rentals. Users can explore listings, book accommodations, and leave reviews. The application is built using Node.js, Express, MongoDB, and EJS templating. It is web responsive for all devices.
 
 ## Features
 
